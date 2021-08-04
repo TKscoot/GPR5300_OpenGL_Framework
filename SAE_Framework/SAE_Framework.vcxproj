@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLFW\lib;E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLAD\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\assimp\lib;E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLFW\lib;E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLAD\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>Build\</OutDir>
     <IntDir>Build\Debug</IntDir>
   </PropertyGroup>
@@ -119,12 +119,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLM;E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLFW\include;E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\assimp\include;E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLM;E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLFW\include;E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\dependencies\GLAD\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>GLAD.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimp-vc141-mtd.lib;GLAD.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,7 +144,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Mesh.cpp" />
     <ClCompile Include="source\SAE_Framework.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\Mesh.h" />
+    <ClInclude Include="source\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
