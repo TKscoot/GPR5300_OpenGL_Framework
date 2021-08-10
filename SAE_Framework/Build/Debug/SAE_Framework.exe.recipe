@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Source\GPR5300_OpenGL_Framework\SAE_Framework\Build\SAE_Framework.exe</FullPath>
+      <FullPath>E:\SupiStuff\OVLs\Graphics_Shader_Programming\Framework_Template\GPR5300_OpenGL_Framework\SAE_Framework\Build\SAE_Framework.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
