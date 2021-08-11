@@ -144,7 +144,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\Mesh.cpp" />
     <ClCompile Include="source\SAE_Framework.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\Mesh.h" />
+    <ClInclude Include="source\Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
