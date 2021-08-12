@@ -1,4 +1,9 @@
 #include "Mesh.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/vector3.h>
+#include <assimp/cimport.h>
 
 Mesh::Mesh()
 {
@@ -20,12 +25,69 @@ Mesh::Mesh()
 
 Mesh::Mesh(string filename)
 {
-	// TODO: Meshloading von Datei
+	unsigned int flags =
+		aiProcess_Triangulate |
+		aiProcess_GenNormals;
+
+	Assimp::Importer importer;
+
+	const aiScene* scene = importer.ReadFile(filename, flags);
+
+	if (!scene)
+	{
+		std::cout << "Mesh did not load correctly!" << std::endl;
+		return;
+	}
+
+	if (!scene->HasMeshes())
+	{
+		std::cout << "Scene has no meshes!" << std::endl;
+		return;
+	}
+
+	aiMesh* mesh = scene->mMeshes[0];
+
+	mVertices.resize(mesh->mNumVertices);
+
+	for (int v = 0; v < mesh->mNumVertices; v++)
+	{
+
+		// Position
+		mVertices[v].position = glm::vec3(
+								mesh->mVertices[v].x,
+								mesh->mVertices[v].y,
+								mesh->mVertices[v].z);
+		// Normal
+		mVertices[v].normal	  = glm::vec3(
+								mesh->mNormals[v].x,
+								mesh->mNormals[v].y,
+								mesh->mNormals[v].z);
+	}
+
+	mIndices.resize(mesh->mNumFaces * 3);
+
+	for (int f = 0; f < mesh->mNumFaces; f++)
+	{
+		aiFace* face = mesh->mFaces + f;
+		for (int i = 0; i < face->mNumIndices; i++)
+		{
+			mIndices[((3 * f) + i)] = *(face->mIndices + i);
+		}
+	}
+
+	CreateOpenGLResources();
+	LoadShader("shaders/VertexShader.glsl", "shaders/FragmentShader.glsl");
 }
 
-void Mesh::Render()
+void Mesh::Render(glm::mat4 view, glm::mat4 projection, glm::vec3 cameraPosition)
 {
 	glUseProgram(mShaderProgram);
+
+	UploadUniformMat4(mShaderProgram, "world", mWorld);
+	UploadUniformMat4(mShaderProgram, "view", view);
+	UploadUniformMat4(mShaderProgram, "projection", projection);
+
+	UploadUniformVector3(mShaderProgram, "cameraPos", cameraPosition);
 
 	glBindVertexArray(mVertexArrayObject);
 	glDrawElements(GL_TRIANGLES, mIndices.size(), GL_UNSIGNED_INT, nullptr);
